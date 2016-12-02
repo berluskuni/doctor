@@ -1,0 +1,66 @@
+
+
+<div class="col-sm-12 margin-b-20">
+            <div class="user-card clearfix">
+    {% for img in context.images %}
+                <a href="javascript:collapsElement('edit{{ img.pk }}')" title="" rel="nofollow">
+                {% if img.preview %}<img src="{{ img.preview.url }}" class="img-thumbnail">
+                {% else %} <img src="/media/uploads/none_previu.jpg" class="img-thumbnail">
+                {% endif %}
+                </a>
+
+                <div id="edit{{ img.pk }}" style="display: none">
+                <table width="100%" border="1">
+                    <tbody>
+                    <tr>
+                        <td>
+
+
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-8" style="text-align: center">
+                            <a href="{{ img.file.url }}" target="_blank">
+                                {% if img.file %}
+                                <img  src="{{ img.file.url }}" class="img-thumbnail">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="col-lg-4">
+                            <form enctype="multipart/form-data" action="/adminka/media/edittemp/{{ img.pk }}/" method="post">
+                            {% csrf_token %}
+                                <input type="hidden" name="path" value="#gallery" />
+                            <p align="center"><strong>Редактирование</strong> &nbsp &nbsp
+                                (<a href="javascript:collapsElement('edit{{ img.pk }}')" title="" rel="nofollow"> Отмена </a>) </p>
+                            ID - {{ img.pk }} &nbsp &nbsp &nbsp &nbsp <br>
+                            Заменить: <br><input id="id_file" name="file" type="file" />
+
+                            <br>
+                            Alt (описание для SEO):<br>
+                            <textarea class="form-control" cols="20" id="id_seo_alt" maxlength="300" name="seo_alt" rows="2">{{ img.seo_alt }}
+                                        </textarea>
+                            <br>
+                            Автор редакции: <br> &nbsp {{ img.extuser }}
+                            <br>
+                            <p align="center"><button class="btn btn-info btn-sm" type="submit">Сохранить</button></p>
+                            <br>
+                            <table width="90%" border="1">
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                            </table>
+                            <p align="right">
+                                <a href="/adminka/media/delete/{{ img.pk }}/">Удалить навсегда</a>  &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp
+                            </p>
+                            </form>
+                        </div>
+                    </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                {% endfor %}
+            </div>
+        </div>

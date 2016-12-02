@@ -1,0 +1,45 @@
+{% load staticfiles %}
+{% for item in contact %}
+<header class="header">
+	<div class="container">
+		<div class="header-wrapp">
+			<div class="header-row">
+				<div class="header-col header-col-regime">
+					<div class="header-block">
+						<div class="header-block-title">Время работы:</div>
+						<div class="header-block-body">
+							<p>пн-пт: <b>{{ item.time_work_one_hours_begin }}<sup>{{ item.time_work_one_minute_begin }}
+                            </sup>-{{ item.time_work_one_hours_end }}<sup>{{ item.time_work_one_minute_end }}</sup></b>
+							<p>сб: <b>{{ item.time_work_two_hours_begin }}<sup>{{ item.time_work_two_minute_begin }}
+                            </sup>-{{ item.time_work_two_hours_end }}<sup>{{ item.time_work_two_minute_end }}</sup></b>
+							<p>вс: <b>{{ item.time_work_three }}</b>
+						</div>
+					</div>
+				</div>
+				<div class="header-col header-col-logo">
+					<a href="#" class="logo">{{ item.clinic_name }}</a>
+				</div>
+				<div class="header-col header-col-contacts">
+					<div class="header-block">
+						<div class="header-block-title">Телефон:</div>
+						<div class="header-block-body">
+							<p><a href="tel:{{ item.phone_one }}" class="header-tel"><span>{{ item.phone_one|slice:':1' }}
+                                ({{ item.phone_one|slice:'1:4' }})</span> {{ item.phone_one|slice:'4::' }}</a>
+							<p><a href="tel:{{ item.phone_two }}" class="header-tel"><span>{{ item.phone_two|slice:':1' }}
+                            ({{ item.phone_two|slice:'1:4' }})</span> {{ item.phone_two|slice:'4::' }}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<nav class="nav-top">
+		<div class="container">
+			<ul class="menu-top">
+				<li><a href="#">{{ item.clinic_service_one }}</a></li>
+				<li><a href="#"></a>{{ item.clinic_service_two }}</li>
+			</ul>
+		</div>
+	</nav>
+</header>
+{% endfor %}

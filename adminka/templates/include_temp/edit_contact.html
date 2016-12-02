@@ -1,0 +1,98 @@
+
+<h4> &nbsp &nbsp Название контакты и время работы: </h4>
+<a name="edit_contacts"></a>
+
+    <div class="col-sm-12 margin-b-5">
+        <div class="user-card clearfix">
+            <form enctype="multipart/form-data" action="/adminka/edittemp/contacts/" method="post">
+            {% csrf_token %}
+                <input type="hidden" name="contact_id" value="{{ contact.pk }}" />
+            <div class="row">
+                <div class="col-sm-6">
+                    Название:  <br>
+                    <input class="form-control" id="id_clinic_name" name="clinic_name" type="text" value="{{ contact.clinic_name }}"/>
+                </div>
+                <div class="col-sm-6">
+                    Направление деятельности:  <br>
+                    <input class="form-control" id="id_clinic_service_one" name="clinic_service_one" type="text" value="{{ contact.clinic_service_one }}"/>
+                    <input class="form-control" id="id_clinic_service_two" name="clinic_service_two" type="text" value="{{ contact.clinic_service_two }}"/>
+                </div>
+
+            </div>
+             <br>
+            <div class="row">
+
+                <div class="col-sm-4">
+                    <table width="100%" border="0">
+                <tbody>
+                <tr>
+                    <td valign="top">
+            <strong>ПН-ПТ</strong><br>
+                    <input id="id_time_11_hours" min="0" max="23" name="time_11_hours" type="number"
+                    value="{{ time_work.time_11_hours }}" />ч.
+                    <input id="id_time_11_minutes" min="0" max="59" name="time_11_minutes" type="number"
+                    value="{{ time_work.time_11_minutes }}" />мин.
+                    &nbsp - &nbsp
+                    <input id="id_time_12_hours" min="0" max="23" name="time_12_hours" type="number"
+                    value="{{ time_work.time_12_hours }}" />ч.
+                    <input id="id_time_12_minutes" min="0" max="59" name="time_12_minutes" type="number"
+                    value="{{ time_work.time_12_minutes }}" />мин.
+            <br>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+                </div>
+                <div class="col-sm-4">
+                    <table width="100%" border="0">
+                    <tbody>
+                        <tr>
+                            <td valign="top">
+                <strong>Субота</strong><br>
+                        <input id="id_time_21_hours" min="0" max="23" name="time_21_hours" type="number"
+                        value="{{ time_work.time_21_hours }}" />ч.
+                        <input id="id_time_21_minutes" min="0" max="59" name="time_21_minutes" type="number"
+                        value="{{ time_work.time_21_minutes }}" />мин.
+                        &nbsp - &nbsp
+                        <input id="id_time_22_hours" min="0" max="23" name="time_22_hours" type="number"
+                        value="{{ time_work.time_22_hours }}" />ч.
+                        <input id="id_time_22_minutes" min="0" max="59" name="time_22_minutes" type="number"
+                        value="{{ time_work.time_22_minutes }}" />мин.
+                <br>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    Адрес (строка 1):  <br>
+                    <input class="form-control" id="id_address_dig" name="address_dig" type="text" value="{{ contact.address_dig }}"/>
+                </div>
+                <div class="col-sm-6">
+                    Адрес (строка 2):  <br>
+                    <input class="form-control" id="id_address_street" name="address_street" type="text" value="{{ contact.address_street }}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    адрес (примечание):  <br>
+                    <input class="form-control" id="id_address_text" name="address_text" type="text" value="{{ contact.address_text }}"/>
+                </div>
+            </div>
+                <br>
+            <div class="row">
+                <div class="col-sm-6">
+                    Телефон 1:  <br>
+                    <input class="form-control" id="id_phone_one" name="phone_one" type="text" value="{{ contact.phone_one }}"/>
+                    Телефон 2:  <br>
+                    <input class="form-control" id="id_phone_two" name="phone_two" type="text" value="{{ contact.phone_two }}"/>
+                </div>
+            </div>
+            <br>
+            <p align="center"><button type="submit" class="btn btn-info btn-border"> Сохранить </button> </p>
+            </form>
+        </div><!--user card-->
+    </div>

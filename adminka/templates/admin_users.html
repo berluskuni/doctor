@@ -1,0 +1,107 @@
+{% extends 'index_admin.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+        <!-- container-fluid -->
+
+<style>
+    .titleleftstr, .titlerightstr {
+    float: left; /* Обтекание справа */
+    width: 65%; /* Ширина текстового блока */
+   }
+   .titlerightstr {
+    text-align: right; /* Выравнивание по правому краю */
+    width: 35%; /* Ширина текстового блока */
+   }
+.error {
+    color: rgba(191, 25, 59, 0.98); /* Цвет символа */
+    font-size: 100%; /* Размер шрифта */
+   }
+
+</style>
+
+<div class="row">
+        <div class="col-lg-6">
+                    <h3 class="page-header"> <strong> Пользователи </strong></h3>
+
+        </div>
+                <!-- /.col-lg-12 -->
+                <div class="col-lg-6" align="right">
+            <a class="page-header btn btn-outline btn-primary" aria-expanded="true" data-toggle="collapse"
+               data-parent="#accordion" href="#add_user">
+                Добавить пользователя &nbsp</a>&nbsp&nbsp&nbsp&nbsp&nbsp
+                </div>
+</div>
+<div id="add_user" class="panel-collapse collapse {% if open %}in{% endif %}" style="" aria-expanded="true">
+   <div class="col-sm-10 margin-b-5">
+        <div class="user-card clearfix">
+            {% if errors %}
+                {% for error in errors %}
+                <p align="center"><span class="error"> {{ error }} </span></p>
+                {% endfor %}
+            {% endif %}
+            <form enctype="multipart/form-data" action="/adminka/users/add/" method="post">
+            {% csrf_token %}
+                <input type="hidden" name="contact_id" value="{{ contact.pk }}" />
+            <div class="row">
+                <div class="col-sm-6">
+                    Электронная почта::  <br>
+                    <input class="form-control" id="id_email" name="email" type="email" />
+                </div>
+                <div class="col-sm-6">
+                    Пароль  и подтверждение пароля:  <br>
+                    <input class="form-control" id="id_password1" minlength="7" name="password1" type="password" placeholder="Пароль"/>
+                    <input class="form-control" id="id_password2" minlength="7" name="password2" type="password" placeholder="Подтверждение" />
+                </div>
+            </div>
+             <br>
+            <p align="center"><button type="submit" class="btn btn-info btn-border"> Сохранить </button> </p>
+            </form>
+        </div><!--user card-->
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <header class="panel-heading">
+                <h2 class="panel-title">Панель администратора</h2>
+            </header>
+                        <!-- /.panel-heading -->
+            <div class="panel-body">
+                <table id="datatable" class="table table-striped dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th >ID</th>
+                            <th >ФИО</th>
+                            <th>E.mail</th>
+                            <th>Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.pk }}</td>
+                            <td>
+                                <a href="/adminka/user/{{ user.pk }}/">{{ user }}</a>
+                            </td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                {% if user.is_active %}
+                                Активен
+                                {% else %}
+                                Не активен
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

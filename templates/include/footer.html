@@ -1,0 +1,51 @@
+{% load staticfiles %}
+{% for item in contact %}
+<footer class="footer">
+	<div class="container">
+		<div class="footer-row">
+			<div class="footer-col">
+				<div class="footer-logo">
+					<img src="{% static 'img/footer-logo.png' %}" alt="">
+				</div>
+				<div class="footer-copyright">
+					<p>Copyright © 2016
+					<p>{{ item.clinic_name }}
+				</div>
+			</div>
+			<div class="footer-col">
+				<div class="footer-block">
+					<div class="footer-block-title">Мы находимся:</div>
+					<div class="footer-block-content">
+						<p>{{ item.address_dig }}
+						<p>{{ item.address_street }}
+						<p>{{ item.address_text }}
+					</div>
+				</div>
+			</div>
+			<div class="footer-col">
+				<div class="footer-block">
+					<div class="footer-block-title">Время работы:</div>
+					<div class="footer-block-content">
+						<p>пн-пт: <b>{{ item.time_work_one_hours_begin }}<sup>{{ item.time_work_one_minute_begin }}
+                            </sup>-{{ item.time_work_one_hours_end }}<sup>{{ item.time_work_one_minute_end }}</sup></b>
+						<p>сб: <b>{{ item.time_work_two_hours_begin }}<sup>{{ item.time_work_two_minute_begin }}
+                            </sup>-{{ item.time_work_two_hours_end }}<sup>{{ item.time_work_two_minute_end }}</sup></b>
+						<p>вс: <b>{{ item.time_work_three }}</b>
+					</div>
+				</div>
+			</div>
+			<div class="footer-col">
+				<div class="footer-block">
+					<div class="footer-block-title">Телефон:</div>
+					<div class="footer-block-content">
+                        <p><a href="tel:{{ item.phone_one }}" class="header-tel"><span>{{ item.phone_one|slice:':1' }}
+                                ({{ item.phone_one|slice:'1:4' }})</span> {{ item.phone_one|slice:'4::' }}</a>
+						<p><a href="tel:{{ item.phone_two }}" class="header-tel"><span>{{ item.phone_two|slice:':1' }}
+                            ({{ item.phone_two|slice:'1:4' }})</span> {{ item.phone_two|slice:'4::' }}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+{% endfor %}

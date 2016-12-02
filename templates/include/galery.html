@@ -1,0 +1,26 @@
+{% load staticfiles %}
+<div class="main-gallery">
+		<div class="container">
+			<div class="main-gallery-row main-gallery-row-main clearfix">
+				<div class="main-gallery-col col-md-8 col-sm-8">
+					<div class="main-gallery-block">
+						<img src="{{ context.gallery_img_1.file.url }}" alt="">
+					</div>
+				</div>
+				<div class="main-gallery-col col-md-4 col-sm-4">
+					<div class="main-gallery-row clearfix">
+						<div class="main-gallery-col col-md-12 col-sm-12 col-xs-6">
+							<div class="main-gallery-block">
+								<img src="{{ context.gallery_img_2.file.url }}" alt="">
+							</div>
+						</div>
+						<div class="main-gallery-col col-md-12 col-sm-12 col-xs-6">
+							<div class="main-gallery-block">
+								<img src="{{ context.gallery_img_3.file.url }}" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

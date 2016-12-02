@@ -1,0 +1,107 @@
+{% extends 'index_admin.html' %}
+{% load staticfiles %}
+
+
+
+{% block content %}
+
+<div class="row">
+                <div class="col-lg-12">
+    <h3 class="page-header">{{ user.lastname }} {{ user.firstname }} {{ user.middlename }} </h3>
+                </div>
+                <!-- /.col-lg-12 -->
+</div>
+
+ <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#profile" data-toggle="tab">Личные данные</a>
+                                </li>
+
+                                <li><a href="#activities" data-toggle="tab">Активность</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content">
+
+                                <!-- Личные данные -->
+                                <div class="tab-pane fade in active" id="profile">
+                <h4>Личные данные &nbsp&nbsp&nbsp
+                    {% if admin or own %}<a href="javascript:collapsElement('changeprofile')">
+                        <span class="fa  fa-wrench"></span> </a>{% endif %}
+                    &nbsp&nbsp&nbsp
+                    {% if admin %}<a href="javascript:collapsElement('perms')">
+                        <span class="fa fa-star-half-full"> </span></a>{% endif %}
+                    &nbsp&nbsp&nbsp
+                    {% if admin %}<a href="javascript:collapsElement('adminaction')">
+                        <span class="fa  fa-retweet"></span> </a>{% endif %}
+                </h4>
+                 <!-- страница личных данных -->
+                        {% include 'include/user_profile.html' %}
+
+
+
+                                <!-- Админ - разрешения -->
+<div id="perms" style="display: none">
+<div class="col-lg-6" align="center">
+<form enctype="multipart/form-data" action="/adminka/perms/permissions/" method="post">
+{% csrf_token %}
+
+         <table class="table table-striped">
+            <tbody>
+<select id="id_extuser" name="extuser" hidden="hidden">
+    <option value="{{ user.pk }}"></option>
+</select>
+<tr>
+    <td align="center"> <strong>  Разрешения </strong> </td>
+</tr>
+<tr >
+    <td>
+{{ perm_form.admin }} &nbsp &nbsp Администратор &nbsp &nbsp
+    </td>
+</tr>
+<tr >
+    <td>
+{{ perm_form.edit_gallery }} &nbsp &nbsp Редактирование медиа библиотеки &nbsp &nbsp
+    </td>
+</tr>
+<tr >
+    <td>
+{{ perm_form.edit_temp_page }} &nbsp &nbsp Редактирование временной страницы &nbsp &nbsp
+    </td>
+</tr>
+<tr>
+    <td align="center">
+    <br>
+    <button class="btn btn-primary" type="submit">Сохранить</button>
+    </td>
+</tr>
+            </tbody>
+        </table>
+</form>
+</div>
+</div>
+                                <!-- /. Админ - смена пароля пользователя -->
+                                </div>
+                    <!-- END Личные данные -->
+
+                    <!-- Активность -->
+                                <div class="tab-pane fade" id="activities">
+                                    <h4>Активность</h4>
+                                </div>
+                    <!--END Активность -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+</div>
+        </div>
+
+
+
+{% endblock %}

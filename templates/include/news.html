@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<section class="news">
+		<div class="container">
+			<h2 class="section-title"><span><b>Новости</b> клиники</span></h2>
+			<div class="news-row">
+                {% for item in context.news %}
+				<div class="news-col">
+					<div class="news-block">
+						<a href="#" class="news-block-img">
+							<img src="{{ item.img_news.url }}" alt="">
+						</a>
+						<div class="news-block-body clearfix">
+							<div class="news-block-date-block">
+								<div class="news-block-date">{{ item.news_data_day }}</div>
+								<div class="news-block-month">{{ item.news_data_month }}</div>
+							</div>
+							<div class="news-block-content">
+								<h3 class="news-block-title">
+									<a href="#">{{ item.title_news }}</a>
+								</h3>
+								<div class="news-block-text">{{ item.description_news }}</div>
+								<a href="#" class="read-more"><span>подробнее</span> >></a>
+							</div>
+						</div>
+					</div>
+				</div>
+                {% endfor %}
+			</div>
+		</div>
+	</section>

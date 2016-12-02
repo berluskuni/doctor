@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+{% block head %} {% endblock head %}
+
+</head>
+
+<body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout">
+    <div id="wrapper">
+
+    <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
+
+
+        {% block header %}{% endblock header %}
+
+        <div id="hoeapp-container" hoe-color-type="lpanel-bg7" hoe-lpanel-effect="shrink">
+
+        {% block left-panel %}{% endblock left-panel %}
+
+                <!--start main content-->
+                <section id="main-content">
+                    <div class="space-30"></div>
+                    <div class="container">
+
+                    {% block content %}{% endblock content %}
+                    </div>
+
+                    <!--footer start-->
+                    {% block footer %}{% endblock footer %}
+                    <!--end footer-->
+
+                </section><!--end main content-->
+
+
+        </div>
+    </div><!--end wrapper-->
+
+    </div>
+<!-- /#wrapper -->
+
+{% block scrits %} {% endblock scrits %}
+{% block page_scripts %} {% endblock page_scripts %}
+<script>
+ function collapsElement(id) {
+ if ( document.getElementById(id).style.display != "none" ) {
+ document.getElementById(id).style.display = 'none';
+ }
+ else {
+ document.getElementById(id).style.display = '';
+ }
+ }
+ </script>
+</body>
+
+</html>

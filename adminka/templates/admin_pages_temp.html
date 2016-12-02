@@ -1,0 +1,86 @@
+{% extends 'index_admin.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+    <link href="{% static 'icons/styles.css' %}" rel="stylesheet">
+<style>
+    .other {
+    color: rgba(191, 16, 62, 0.98); /* Цвет символа */
+    font-size: 150%; /* Размер шрифта */
+   }
+    .edittextgal {
+    color: rgba(16, 0, 167, 0.98); /* Цвет символа */
+    font-size: 100%; /* Размер шрифта */
+   }
+    .icon {
+    font-size: 200%; /* Размер шрифта */
+   }
+</style>
+
+    <h3> Временная страница (Заглушка) </h3>
+    <br>
+
+<div class="row">
+    {% include 'include_temp/edit_contact.html' %}
+</div>
+
+<br>
+
+
+    <a name="services"></a>
+    <br>
+    <h4> Услуги </h4>
+    <div class="row">
+        {% include 'include_temp/edit_services.html' %}
+    </div>
+    <br>
+
+    <h4> Галерея (3 изображения) </h4>
+    <a name="gallery"></a>
+    <div class="row">
+        {% include 'include_temp/edit_gallery.html' %}
+    </div>
+    <a name="news"></a>
+
+
+    <br>
+    <h4> Новости </h4>
+    <div class="row">
+        {% include 'include_temp/edit_news.html' %}
+    </div>
+
+
+
+
+
+    {% comment %}
+
+    {% include 'include/admin_main_blok1.html' %}
+    <hr>
+    {% include 'include/admin_main_blok2.html' %}
+    <hr>
+    {% include 'include/admin_main_gallery.html' %}
+    <hr>
+    {% include 'include/admin_pricing.html' %}
+    <hr>
+    {% include 'include/admin_services.html' %}
+    <hr>
+
+    {% endcomment %}
+
+
+
+
+<br><br><br><br><br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}

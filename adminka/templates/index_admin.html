@@ -1,0 +1,237 @@
+{% extends 'base_admin.html' %}
+{% load staticfiles %}
+
+{% block head %}
+<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>{{ page_title }} | Админка</title>
+
+        <!-- Bootstrap -->
+        <link href="{% static "assan_plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+        <!--side menu plugin-->
+        <link href="{% static "assan_plugins/hoe-nav/hoe.css" %}" rel="stylesheet">
+        <!-- icons-->
+        <link href="{% static "assan_plugins/ionicons/css/ionicons.min.css" %}" rel="stylesheet">
+        <link href="{% static "assan_plugins/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet">
+        <link href="{% static "assan_plugins/vectormap/jquery-jvectormap-2.0.2.css" %}" rel="stylesheet" />
+        <link href="{% static "assan_plugins/morris/morris-0.4.3.min.css" %}" rel="stylesheet">
+{% comment %} <link href="{% static "plugins/summernote/summernote.css" %}" rel="stylesheet">   {% endcomment %}
+
+    <!-- dataTables -->
+        <link href="{% static "assan_plugins/datatables/jquery.dataTables.min.css" %}" rel="stylesheet" type="text/css">
+        <link href="{% static "assan_plugins/datatables/responsive.bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+
+        <!--template custom css file-->
+        <link href="{% static "assan_css/style.css" %}" rel="stylesheet">
+
+        <script src="{% static "assan_js/modernizr.js" %}"></script>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+{% endblock head %}
+
+    {% block header %}
+            <header id="hoe-header" hoe-lpanel-effect="shrink">
+                <div class="hoe-left-header">
+                    <a href="/adminka/"> Панель управления</a>
+                    <span class="hoe-sidebar-toggle"><a href="#"></a></span>
+                </div>
+
+                <div class="hoe-right-header" hoe-position-type="relative">
+                    <span class="hoe-sidebar-toggle"><a href="#"></a></span>
+                    <ul class="left-navbar">
+                        <li>
+                            <div class="top-search hidden-xs">
+                                <form>
+                                    <input type="text" class="form-control" placeholder="Search here">
+                                    <i class="ion-search"></i>
+                                </form>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <ul class="right-navbar navbar-right">
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><img src="{% static "assan_images/avtar.png" %}" alt="" width="30" class="img-circle">
+                            {{ request.user }}</a>
+                            <ul class="dropdown-menu dropdown-menu-scale user-dropdown">
+                                {% comment %}
+                                <li><a href="#"><i class="ion-email-unread"></i> Inbox <span class="label label-warning">3</span></a></li>
+                                {% endcomment %}
+                                <li><a href="/adminka/myprofile/"><i class="ion-person"></i> Профиль </a></li>
+                                <li><a href="#"><i class="ion-calendar"></i> Календарь </a></li>
+                                <li><a href="#"><i class="ion-ios-compose"></i> Задачи </a></li>
+                                <li><a href="/logout/"><i class="ion-log-out"></i> Выйти </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+    {% endblock header %}
+
+    {% block left-panel %}
+        <aside id="hoe-left-panel" hoe-position-type="absolute">
+
+                    <ul class="nav panel-list">
+                        {% comment %}
+                        <li {% if active == 'dash' %} class="active" {% endif %}>
+                            <a href="/adminka/dashboard/">
+                                <i class="fa fa-home"></i>
+                                <span class="menu-text">Dashboard</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        {% endcomment %}
+
+                        <li {% if active == 'pages' %} class="hoe-has-menu active" {% else %} class="hoe-has-menu" {% endif %}>
+                            <a href="javascript:void(0)">
+                                <i class="ion-ios-filing-outline"></i>
+                                <span class="menu-text">Страницы</span>
+                                <span class="selected"></span>
+                            </a>
+                            <ul class="hoe-sub-menu">
+                                <li>
+                                    <a href="/adminka/pages/temp/">
+                                        <span class="menu-text">Временная</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="menu-text">Главная</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <span class="menu-text">level 2</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li class="hoe-has-menu">
+                                    <a href="javascript:void(0)">
+                                        <span class="menu-text">level 2</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                    <ul class="hoe-sub-menu">
+                                        <li class="hoe-has-menu">
+                                            <a href="javascript:void(0)">
+                                                <span class="menu-text">level 3</span>
+                                                <span class="selected"></span>
+                                            </a>
+                                            <ul class="hoe-sub-menu">
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <span class="menu-text">level 4</span>
+                                                        <span class="selected"></span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)">
+                                                        <span class="menu-text">level 4</span>
+                                                        <span class="selected"></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <span class="menu-text">level 3</span>
+                                                <span class="selected"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <span class="menu-text">level 3</span>
+                                                <span class="selected"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <span class="menu-text">level 3</span>
+                                                <span class="selected"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li {% if active == 'm1' %} class="active" {% endif %}>
+                            <a href="/adminka/media/">
+                                <i class="fa fa-user"></i>
+                                <span class="menu-text">Медиа файлы</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    {% if admin %}
+                        <li {% if active == 'users' %} class="active" {% endif %}>
+                            <a href="/adminka/users/">
+                                <i class="fa fa-user"></i>
+                                <span class="menu-text">Пользователи</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                    {% endif %}
+                         <li>
+                            <a href="/adminka/myprofile/">
+                                <i class="fa fa-user"></i>
+                                <span class="menu-text">Профиль</span>
+                                <span class="selected"></span>
+                            </a>
+                         </li>
+                    </ul>
+                </aside><!--aside left menu end-->
+    {% endblock left-panel %}
+
+
+    {% block footer %}
+                    <div class="footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <span>&copy; Copyright 2016. Assan</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--footer end-->
+    {% endblock footer %}
+
+
+
+{% block scrits %}
+    <!-- Основные плагины-->
+        <script src="{% static "assan_plugins/jquery/dist/jquery.min.js" %}"></script>
+        <script src="{% static "assan_plugins/bootstrap/js/bootstrap.min.js" %}"></script>
+        <script src="{% static "assan_plugins/hoe-nav/hoe.js" %}"></script>
+        <script src="{% static "assan_plugins/pace/pace.min.js" %}"></script>
+        <script src="{% static "assan_plugins/slimscroll/jquery.slimscroll.min.js" %}"></script>
+        <script src="{% static "assan_js/app.js" %}"></script>
+    {% comment %} <script src="{% static "plugins/summernote/summernote.min.js" %}"></script> {% endcomment %}
+    <!-- /. Основные плагины-->
+
+    <!-- Datatables-->
+        <script src="{% static "assan_plugins/datatables/jquery.dataTables.min.js" %}"></script>
+        <script src="{% static "assan_plugins/datatables/dataTables.responsive.min.js" %}"></script>
+        <script>
+            $(document).ready(function() {
+        $('#datatable').dataTable();
+        });
+        </script>
+
+{% comment %}
+<script>
+    $(document).ready(function () {
+        $('.summernote').summernote();
+    });
+</script>
+{% endcomment %}
+
+
+
+{% endblock scrits %}

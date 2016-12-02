@@ -1,0 +1,20 @@
+{% load staticfiles %}
+<section class="services">
+		<div class="container">
+			<div class="services-wrapp">
+				<div class="services-row">
+					<div class="services-col services-col-body">
+						<h2 class="section-title"><span><b>Наши</b> услуги:</span></h2>
+						<ul class="services-list">
+                            {% for item in context.service %}
+							<li><i class="services-icon-{{ item.icon }}"></i>{{ item.title }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="services-col services-col-img clearfix">
+						<img src="{% static 'img/doctor.png' %}" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>

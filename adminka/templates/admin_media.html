@@ -1,0 +1,188 @@
+{% extends 'index_admin.html' %}
+{% load staticfiles %}
+
+
+    {% block content %}
+<style>
+    .titleleftstr, .titlerightstr {
+    float: left; /* Обтекание справа */
+    width: 65%; /* Ширина текстового блока */
+   }
+   .titlerightstr {
+    text-align: right; /* Выравнивание по правому краю */
+    width: 35%; /* Ширина текстового блока */
+   }
+</style>
+
+    <div class="row">
+        <div class="col-lg-6">
+                    <h3 > <strong>Библиотека файлов </strong></h3>
+        </div>
+                <!-- /.col-lg-12 -->
+                <div class="col-lg-6" align="right">
+            <a href="javascript:collapsElement('media_add')" class="btn btn-outline btn-primary">
+                Добавить файл &nbsp</a>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                    <br><br>
+                </div>
+    </div>
+
+        <div id="media_add" style="display: none">
+            <div class="col-lg-12" align="right"><br>
+            <form enctype="multipart/form-data" action="/adminka/media/add/" method="post">
+            {% csrf_token %}
+            <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <tbody>
+                                <tr>
+                                    <td colspan="3" align="center">
+                                       <strong>Добавление файла</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top">
+                                        Файл
+                                    </td>
+                                    <td valign="top">
+                                        {{ form.file }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        alt
+                                    </td>
+                                    <td colspan="2">
+                                        <textarea class="form-control" cols="35" id="id_seo_alt" maxlength="130" name="seo_alt" rows="2">
+                                        </textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" align="center">
+        <button class="btn btn-info btn-sm" type="submit">Сохранить</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+            </div>
+            </form>
+            </div>
+        </div>
+
+
+
+    <div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+
+            <div align="center" class="panel-heading">
+<form enctype="multipart/form-data" action="/adminka/media/search/" method="post">
+{% csrf_token %}
+ &nbsp &nbsp &nbsp
+Автор: {{form_search.extuser }}
+                            &nbsp&nbsp&nbsp
+<strong>По дате:</strong> &nbsp &nbsp
+        <strong> От: </strong> {{ form_search.date1 }} &nbsp &nbsp &nbsp
+        <strong> До: </strong>{{ form_search.date2 }} &nbsp &nbsp
+                            &nbsp&nbsp&nbsp<br>
+<button type="submit" class="btn btn-primary btn-sm">
+  Искать </button>
+    <br>
+</form>
+            </div>
+                        <!-- /.panel-heading -->
+            <div class="panel-body">
+
+                {% for img in images %}
+
+                <a href="javascript:collapsElement('edit{{ img.pk }}')" title="" rel="nofollow">
+                {% if img.preview %}<img src="{{ img.preview.url }}" class="img-thumbnail">
+                {% else %} <img src="/media/uploads/none_previu.jpg" class="img-thumbnail">
+                {% endif %}
+                </a>
+
+                <div id="edit{{ img.pk }}" style="display: none">
+                <table width="100%" border="1">
+                    <tbody>
+                    <tr>
+                        <td>
+
+
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-8" style="text-align: center">
+                            <a href="{{ img.file.url }}" target="_blank">
+                                {% if img.file %}
+                                <img  src="{{ img.file.url }}" class="img-thumbnail">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="col-lg-4">
+                            <form enctype="multipart/form-data" action="/adminka/media/edit/{{ img.pk }}/" method="post">
+                            {% csrf_token %}
+                            <p align="center"><strong>Редактирование</strong> &nbsp &nbsp
+                                (<a href="javascript:collapsElement('edit{{ img.pk }}')" title="" rel="nofollow"> Отмена </a>) </p>
+                            ID - {{ img.pk }} &nbsp &nbsp &nbsp &nbsp <br>
+                            <br>
+                            ID превью файла  &nbsp &nbsp -  &nbsp &nbsp <input id="id_file_preview_id" name="file_preview_id" type="number" value="{{ img.file_preview.pk }}"/>
+                            <br>
+                            <br>
+                            Alt:<br>
+                            <textarea class="form-control" cols="20" id="id_seo_alt" maxlength="300" name="seo_alt" rows="2">{{ img.seo_alt }}
+                                        </textarea>
+                            <br>
+                            Автор: &nbsp {{ img.extuser }}
+                            <br><br>
+                            <p align="center"><button class="btn btn-info btn-sm" type="submit">Сохранить</button></p>
+                            <br>
+                            <table width="90%" border="1">
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                            </table>
+                            <p align="right">
+                                <a href="/adminka/media/delete/{{ img.pk }}/">Удалить навсегда</a>  &nbsp &nbsp  &nbsp &nbsp  &nbsp &nbsp
+                            </p>
+                            </form>
+                        </div>
+                    </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <!-- Пагинатор -->
+            <div class="panel-footer" align="center">
+                <div class="pagination">
+
+            {% if images.has_previous %}
+                <a href="?page={{ images.previous_page_number }}">←</a>
+            {% endif %}
+
+
+            {% for num in images.paginator.page_range %}
+                {% if num == images.number %}
+                    <span class="current"><b>{{ num }}</b></span>
+                {% else %}
+                    <a href="?page={{ num }}"> {{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+
+            {% if images.has_next %}
+                <a href="?page={{ images.next_page_number }}">→</a>
+            {% endif %}
+            <!-- /. Пагинатор -->
+
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock content %}

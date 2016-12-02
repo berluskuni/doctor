@@ -1,0 +1,345 @@
+
+
+
+<!-- если владелец профля или директор -->
+{% if own or admin%}
+<div class="col-lg-6">
+    <div class="table-responsive" align="center">
+{% if error %}
+    <span class="error"> {{ error }}</span><br>
+     <a href="/staff/profile/"><<< Закрыть сообщение >>></a>
+
+{% endif %}
+    {{ yes }}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>ФИО</td>
+                    <td>
+                <strong> {{ user.lastname }} {{ user.firstname }} {{ user.middlename }} </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Логин (e.mail)</td>
+                    <td>
+                {{ user.email }}<br>
+                        {% if user.emails_set.all %}
+                            {% else %}
+                            {% if own or admin%}
+<div align="center"><a href="javascript:collapsElement('add_email')" title="" rel="nofollow">Доб. E.mail.</a></div>
+<form enctype="multipart/form-data" action="/adminka/profile/add/addemail/" method="post">
+{% csrf_token %}
+
+    <div id="add_email" style="display: none">
+<input class="form-control" id="id_email" name="email" type="email" required/>
+<input id="id_user_pk" name="user_pk" type="hidden" value="{{ user.pk }}">
+<br>
+       <div align="center"><button class="btn btn-info btn-sm" type="submit">Добавить</button> &nbsp&nbsp
+       (<a href="javascript:collapsElement('add_email')" title="" rel="nofollow">отмена</a>)
+       </div>
+    </div>
+</form>
+                                {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+        {% if user.emails_set.all %}
+                <tr>
+                    <td>Дополнительная почта:</td>
+                    <td>
+        {% for email in user.emails_set.all %}
+            <table width="100%" border="0"><tbody>
+        <tr>
+            <td width="85%">
+            {{ email.email }}
+            </td>
+<!-- удаление почты -->
+            <td>
+        {% if own or admin %}
+            <a href="javascript:collapsElement('{{ email.email }}')"  title="" rel="nofollow">
+            <span class="glyphicon glyphicon-remove"></span></a>{% endif %}
+            </td>
+        </tr></tbody></table>
+
+            <div id="{{ email.email }}" style="text-align: center; display: none">
+<table width="100%" border="0"><tbody>
+        <tr>
+            <td colspan="3" align="center">
+                Удалить <strong>{{ email.email }}</strong> ? <br><br>
+            </td>
+        </tr>
+    <tr>
+        <td width="80px">
+    <a href="/adminka/profile/del/delemail/{{ email.pk }}/"
+       class="btn btn-outline btn-primary btn-sm btn-block">Да</a>
+            <td>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+        &nbsp&nbsp&nbsp&nbsp
+        <td width="80px">
+    <a href="javascript:collapsElement('{{ email.email }}')" class="btn btn-outline btn-primary btn-sm btn-block">Нет</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp&nbsp</td>
+    </tr>
+    </tbody></table>
+    </div>
+<!-- /.удаление почты -->
+        {% endfor %}
+                    {% if own or admin %}
+<form enctype="multipart/form-data" action="/adminka/profile/add/addemail/" method="post">
+{% csrf_token %}
+<div align="center"><a href="javascript:collapsElement('add_email')" title="" rel="nofollow">Доб. E.mail.</a></div>
+
+    <div id="add_email" style="display: none">
+<input class="form-control" id="id_email" name="email" type="email" required/>
+<input id="id_user_pk" name="user_pk" type="hidden" value="{{ user.pk }}">
+<br>
+       <div align="center"><button class="btn btn-info btn-sm" type="submit">Добавить</button> &nbsp&nbsp
+       (<a href="javascript:collapsElement('add_email')" title="" rel="nofollow">отмена</a>)
+       </div>
+    </div>
+
+</form>
+                    {% endif %}
+                    </td>
+                </tr>
+                {% endif %}
+
+
+
+        <tr>
+            <td>Телефон:</td>
+            <td>
+            {% for phone in user.phonenumber_set.all %}
+            <table width="100%" border="0"><tbody>
+                <tr>
+                <td width="85%">
+                {{ phone.number }}
+                </td>
+<!-- удаление номера телефона -->
+                <td>
+                {% if own or admin %}<a href="javascript:collapsElement('{{ phone.number }}')"  title="" rel="nofollow">
+                <span class="glyphicon glyphicon-remove"></span></a>{% endif %}
+                </td>
+                </tr>
+            </tbody>
+            </table>
+
+        <div id="{{ phone.number }}" style="text-align: center; display: none">
+<table width="175px" border="0"><tbody>
+        <tr>
+            <td colspan="3" align="center">
+                Удалить <strong>{{ phone.number }}</strong> ? <br><br>
+            </td>
+        </tr>
+    <tr>
+        <td width="80px">
+    <a href="/adminka/profile/del/delphone/{{ phone.pk }}/"
+       class="btn btn-outline btn-primary btn-sm btn-block">Да</a>
+            <td>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+        &nbsp&nbsp&nbsp&nbsp
+        <td width="80px">
+    <a href="javascript:collapsElement('{{ phone.number }}')" class="btn btn-outline btn-primary btn-sm btn-block">Нет</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp&nbsp</td>
+    </tr>
+    </tbody></table>
+    </div>
+<!-- /.удаление номера телефона -->
+
+        {% endfor %}
+                    {% if own or admin %}
+<form enctype="multipart/form-data" action="/adminka/profile/add/addphone/" method="post">
+{% csrf_token %}
+<div align="center"><a href="javascript:collapsElement('add_phone')" title="" rel="nofollow">Доб. тел.</a></div>
+
+    <div id="add_phone" style="display: none">
+<input class="form-control" id="id_phone" maxlength="14" name="phone" type="number" required/>
+<input id="id_user_pk" name="user_pk" type="hidden" value="{{ user.pk }}">
+<br>
+       <div align="center"><button class="btn btn-info btn-sm" type="submit">Добавить</button> &nbsp&nbsp
+       (<a href="javascript:collapsElement('add_phone')" title="" rel="nofollow">отмена</a>)
+       </div>
+    </div>
+
+</form>
+                    {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Дата рождения</td>
+                    <td>
+                {{ date_of_birth_stroke }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+<!-- /.если владелец профля или директор -->
+
+
+
+
+<!-- если просто сотрудник на чужой странице -->
+{% if staff %}
+
+ <div class="col-lg-6">
+    <div class="table-responsive" align="center">
+{% if error %}
+    <span class="error"> {{ error }}</span><br>
+{% endif %}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>ФИО</td>
+                    <td>
+                {{ user.lastname }} {{ user.firstname }} {{ user.middlename }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Должности (роли)</td>
+                    <td>
+                {% for dolzhnost in user.dolzhnost.all %}
+                    - {{ dolzhnost }} <br>
+                {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>E.mail</td>
+                    <td>
+                {{ user.email }}
+                    </td>
+                </tr>
+    {% if user.emails_set.all %}
+                <tr>
+                    <td>Дополнительная почта:</td>
+                    <td>
+        {% for email in user.emails_set.all %}
+            {{ email.email }} <br>
+        {% endfor %}
+                    </td>
+                </tr>
+    {% endif %}
+
+    {% if user.messenger_set.all %}
+        {% for messenger in messenger_set.all %}
+                <tr>
+                    <td>{{ messenger.title }}</td>
+                    <td>
+                {{ messenger.value }}
+                    </td>
+                </tr>
+        {% endfor %}
+    {% endif %}
+    {% if user.show_date_of_birth %}
+                <tr>
+                    <td>Дата рождения</td>
+                    <td>
+                {{ date_of_birth_stroke }}
+                    </td>
+                </tr>
+    {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endif %}
+<!-- /.если просто сотрудник на чужой странице -->
+
+
+<!-- Админ - смена пароля пользователя -->
+<div id="adminaction" style="display: none">
+<div class="col-lg-4" align="center">
+<form enctype="multipart/form-data" action="/adminka/user/change/password/" method="post">
+{% csrf_token %}
+    <div class="table-responsive" align="center">
+        <table class="table">
+            <tbody>
+        <input id="id_user_pk" name="user_pk" type="hidden" value="{{ user.pk }}">
+        <tr>
+            <td colspan="2" align="center"><strong>Создание нового пароля пользователя</strong></td>
+        </tr>
+        <tr>
+            <td>Ввести свой пароль</td>
+            <td align="left">
+                <input class="form-control" id="id_password1" name="password1" type="password"
+                        placeholder="введите свой пароль" required/>  <br>
+            </td>
+        </tr>
+        <tr>
+            <td>Ввести новый пароль пользователя</td>
+            <td align="left">
+                <input class="form-control" id="id_password2" name="password2" type="password"
+                        placeholder="новый пользователя" required/>  <br>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <button class="btn btn-info btn-sm" type="submit">Сохранить</button>
+            </td>
+        </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+</div>
+</div>
+<!-- /. Админ - смена пароля пользователя -->
+
+<!-- пользователь - редактирование данных профиля -->
+<div id="changeprofile" style="display: none">
+                <div class="col-lg-6" align="center">
+<form enctype="multipart/form-data" action="/adminka/profile/change/" method="post">
+{% csrf_token %}
+    <div class="table-responsive" align="center">
+        <table class="table">
+            <tbody>
+            <input id="id_user_pk" name="user_pk" type="hidden" value="{{ user.pk }}">
+                <tr>
+                    <td colspan="2" align="center"><strong>Редактирование данных</strong></td>
+                </tr>
+                <tr>
+                    <td>Имя</td>
+                    <td>
+                    {{ form.firstname }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Фамилия</td>
+                    <td>
+                        {{ form.lastname }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Отчество</td>
+                    <td>
+                        {{ form.middlename }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Изменить логин (e.mail)</td>
+                    <td>
+                        {{ form.email }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Изменить дату рождения</td>
+                    <td>
+                        {{ form.date_of_birth }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-outline btn-primary" type="submit">Сохранить</button>
+    </form>
+    </div>
+</div>
+<!-- /. пользователь - редактирование данных профиля  -->
+

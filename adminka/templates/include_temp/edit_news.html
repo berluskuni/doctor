@@ -1,0 +1,59 @@
+
+{% for post in context.news %}
+        <div class="col-sm-6">
+        <form enctype="multipart/form-data" action="/adminka/edittemp/news/{{ post.pk }}/" method="post">
+        {% csrf_token %}
+        <div class="user-card clearfix">
+
+        Название:  <br>
+            <input class="form-control" id="id_title_news" name="title_news" type="text" value="{{ post.title_news }}"/>
+            <br>
+            <table width="100%">
+                <tbody>
+                <tr>
+                    <td>
+                        Дата:
+                    </td>
+                    <td>
+                         день:  &nbsp <input id="id_news_data_day" min="1" max="31" name="news_data_day" type="number"
+                                value="{{ post.news_data_day }}" />
+                    </td>
+                    <td>
+                        месяц: &nbsp
+            <input  id="id_news_data_month" name="news_data_month" type="text" value="{{ post.news_data_month }}"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            Текст <br>
+            <textarea class="form-control" cols="35" id="id_description_news" maxlength="600" name="description_news" rows="4">
+            {{ post.description_news }}</textarea>
+            <input type="hidden" name="path" value="#news" /><br>
+            <table width="100%">
+                <tbody>
+                <tr>
+                    <td valign="top">Заменить:
+                        <input id="id_img_news" name="img_news" type="file" />
+                    </td>
+                    <td>
+
+                    </td>
+                    <td valign="top">
+                        {% if post.img_news %}
+                            <a href="{{ post.img_news.url }}" target="_blank">
+                                <img  src="{{ post.img_news.url }}" class="img-thumbnail">
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <p align="center"><button type="submit" class="btn btn-info btn-border"> Сохранить </button> </p>
+        </div>
+
+        </form>
+    </div>
+
+
+    {% endfor %}
